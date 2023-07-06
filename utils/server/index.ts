@@ -90,6 +90,8 @@ export const OpenAIStream = async (
         if (event.type === 'event') {
           const data = event.data;
 
+          // console.log("Data: " + data);
+
           try {
             const json = JSON.parse(data);
             if (json.choices[0].finish_reason != null) {
@@ -100,7 +102,7 @@ export const OpenAIStream = async (
             const queue = encoder.encode(text);
             controller.enqueue(queue);
           } catch (e) {
-            controller.error(e);
+            controller.error("Data: " + data + " Error: " + e);
           }
         }
       };
